@@ -6,3 +6,8 @@
       overflow: hidden;
       transition: margin 0.1s ease ;
 }
+
+#inventoryItem{
+	height: 317px;
+	width: 467px;
+}

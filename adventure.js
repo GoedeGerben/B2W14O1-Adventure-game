@@ -147,24 +147,19 @@ if(e.key == 'd'){
 
 
 if (e.key == 'e' && inventory == 'closed'){
-	document.getElementById("inventoryItem").style.backgroundImage = "url(items/inventory.jpg)";
 	inventory = 'open';
-
-
+	document.getElementById("inventoryItem").style.backgroundImage = "url(items/inventory.jpg)";
 	//opent de inventory
-}
-if (e.key == 'e' && inventory == 'open'){
-	//document.getElementById("inventoryItem").style.backgroundImage = 'none';
-	//inventory = 'closed';
-
-
+}else if (e.key == 'e' && inventory == 'open'){
+	document.getElementById("inventoryItem").style.backgroundImage = 'none';
+	inventory = 'closed';
 	//sluit de inventory
 }
 
 
 });
 
-//inventory opent en sluit hij tergelijkertijd
-//hij pakt de inventory image niet
-
+//achtergronden
+//obstakels
+//items in de inventory plaatsen
 //meerdere skins? (mijn idee)
