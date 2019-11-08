@@ -55,24 +55,57 @@ function bonus3() {
 }
 
 var myIndex = 0;
-
-var marioPositions=  [-55, -215, -385];
+var marioJump =  [-55, -215, -385];
+var marioWalk = [-55, -215];
 var mIndex = 0;
 var mEven = 0;
 var m = document.getElementById("mario");
 var totalJump = 0;
+var inventory = 'closed';
+
 function mario(){
 	totalJump++;
 	if(totalJump == 10){
-		document.body.style.backgroundColor = "red";
+		//document.body.style.backgroundColor = "red";
+		//veranderd de achtergrond kleur als er 10x word gesprongen.
 	}
+
 	mIndex = 1;
 	var animation = setInterval(function(){
 	
-		m.style.backgroundPosition = marioPositions[mIndex] + "px 0";
-		console.log(marioPositions[mIndex] + "px 0");
-		m.style.marginTop = marioPositions[mIndex] / 2 + "px";
-		if(mIndex == marioPositions.length - 1){
+		m.style.backgroundPosition = marioJump[mIndex] + "px 0";
+		//console.log(marioJump[mIndex] + "px 0");
+		m.style.marginTop = marioJump[mIndex] / 2 + "px";
+		//console.log(m.style.marginTop + "px 0");
+		if(mIndex == marioJump.length - 1){
+			mEven = 1;
+		} 
+		if(!mEven){
+			mIndex++;
+		} else {
+			mIndex--;
+		}
+		if(mIndex < 0){
+			mEven = 0;
+			m.style.marginTop = "0px";
+			clearInterval(animation);
+		}
+	}, 100);
+}
+document.addEventListener("keypress", function(e) { 	
+
+if(e.keyCode == 13){
+		mario();
+		//voert de functie uit die het character laat springen als "enter" ingedrukt word.
+	}
+
+if(e.key == 'a'){
+	m.style.transform = "scaleX(-1)";
+	mIndex = 1;
+	var animation = setInterval(function(){	
+		m.style.backgroundPosition = marioWalk[mIndex] + "px 0";
+		m.style.marginLeft = Number(m.style.marginLeft.replace('px', '') ) - 10 + 'px';
+		if(mIndex == marioWalk.length - 1){
 			mEven = 1;
 		} 
 		if(!mEven){
@@ -84,25 +117,54 @@ function mario(){
 			mEven = 0;
 			clearInterval(animation);
 		}
-	}, 100);
-}
-
-mario();
-document.addEventListener("keypress", function(e) { 	
-
-if(e.keyCode == 13){
-		mario();
-	}
-
-if(e.key == 'a'){
-	m.style.transform = "scaleX(-1)";
-	console.log("Left")
-	m.style.marginLeft = Number(m.style.marginLeft.replace('px', '') ) - 10 + 'px';
+	}, 150);
+	//laat het character naar links lopen.
 }
 if(e.key == 'd'){
-		m.style.transform = "scaleX(+1)";
-		console.log("Right")
+	m.style.transform = "scaleX(+1)";
+	mIndex = 1;
+	var animation = setInterval(function(){
+		m.style.backgroundPosition = marioWalk[mIndex] + "px 0";
 		m.style.marginLeft = Number(m.style.marginLeft.replace('px', '') ) + 10 + 'px';
+		if(mIndex == marioWalk.length - 1){
+			mEven = 1;
+		} 
+		if(!mEven){
+			mIndex++;
+		} else {
+			mIndex--;
+		}
+		if(mIndex < 0){
+			mEven = 0;
+			clearInterval(animation);
+		}
+	}, 150);
 
+
+	//laat het character naar rechts lopen.
 }
+
+
+
+if (e.key == 'e' && inventory == 'closed'){
+	document.getElementById("inventoryItem").style.backgroundImage = "url(items/inventory.jpg)";
+	inventory = 'open';
+
+
+	//opent de inventory
+}
+if (e.key == 'e' && inventory == 'open'){
+	//document.getElementById("inventoryItem").style.backgroundImage = 'none';
+	//inventory = 'closed';
+
+
+	//sluit de inventory
+}
+
+
 });
+
+//inventory opent en sluit hij tergelijkertijd
+//hij pakt de inventory image niet
+
+//meerdere skins? (mijn idee)

@@ -1,0 +1,8 @@
+#mario{
+      width: 150px;
+      height: 300px;
+      background-image: url(characters/mario.png);
+      background-position: -55px 0;
+      overflow: hidden;
+      transition: margin 0.1s ease ;
+}
