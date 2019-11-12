@@ -120,6 +120,7 @@ if(e.key == 'a'){
 	}, 150);
 	//laat het character naar links lopen.
 }
+
 if(e.key == 'd'){
 	m.style.transform = "scaleX(+1)";
 	mIndex = 1;
@@ -139,12 +140,8 @@ if(e.key == 'd'){
 			clearInterval(animation);
 		}
 	}, 150);
-
-
 	//laat het character naar rechts lopen.
 }
-
-
 
 if (e.key == 'e' && inventory == 'closed'){
 	inventory = 'open';
@@ -159,6 +156,7 @@ if (e.key == 'e' && inventory == 'closed'){
 
 });
 
+//alleen laten lopen als de knop ingedrukt blijft? 
 //achtergronden
 //obstakels
 //items in de inventory plaatsen
