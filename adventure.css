@@ -1,3 +1,7 @@
+*{
+	margin: 0px;
+}
+
 #mario{
       width: 150px;
       height: 300px;
@@ -5,24 +9,35 @@
       background-position: -55px 0;
       overflow: hidden;
       transition: margin 0.1s ease ;
+      position:absolute;
+      margin-top: 420px;
+  }
+
+#inventory{
+	height: 317px;
+	width: 467px;
+	position:absolute;
 }
 
 #inventoryItem{
-	height: 317px;
-	width: 467px;
+
 }
 
 #box1{
 	background-image: url(achtergronden/box1.png);
-	/*background-position: 20px 20px;*/
-	/*overflow: hidden;*/
+	position:absolute;
+	
+	margin-top: 420px;
 }
 
-#trees{
-
+#item{
+	position:absolute;
 }
 
 #grass{
-	background-image: url(achtergronden/backgrounds/background_layer_4.png);
-	background-repeat: repeat-x;
+    background-image: url(achtergronden/backgrounds/background_layer_4.png);
+    background-repeat: repeat-x;
+    width: auto;
+    height: 950px;
+    position:relative;
 }

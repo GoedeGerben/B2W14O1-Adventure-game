@@ -54,7 +54,7 @@ function bonus3() {
 	
 }
 
-var speed = 15; //bepaald de snelhijd van het character.
+var speed = 30; //bepaald de snelhijd van het character.
 
 var box1 = []
 var box2 = []
@@ -91,7 +91,7 @@ if(e.keyCode == 13 && !jumping){
 	var animation = setInterval(function(){
 	
 		marioHtml.style.backgroundPosition = marioJump[mIndexJump] + "px 0";
-		marioHtml.style.marginTop = marioJump[mIndexJump] + "px";
+		marioHtml.style.marginTop = marioJump[mIndexJump] + 420 + "px";
 		marioHtml.style.marginLeft = Number(marioHtml.style.marginLeft.replace('px', '') ) - momentumLeft + 'px'; //beweegt het character naar links tijdens de sprong als het momentum heeft
 		marioHtml.style.marginLeft = Number(marioHtml.style.marginLeft.replace('px', '') ) + (momentumRight) + 'px'; //beweegt het character naar rechts tijdens de sprong als het momentum heeft
 		if(mIndexJump == marioJump.length - 1){
@@ -104,7 +104,7 @@ if(e.keyCode == 13 && !jumping){
 		}
 		if(mIndexJump < 0){
 			mEven = false;
-			marioHtml.style.marginTop = "0px";
+			marioHtml.style.marginTop = "420px";
 			clearInterval(animation);
 		}
 	}, 100);
@@ -168,10 +168,10 @@ if(e.key == 'd' && !walking){
 
 if (e.key == 'e' && inventory == 'closed'){
 	inventory = 'open';
-	document.getElementById("inventoryItem").style.backgroundImage = "url(items/inventory.jpg)";
+	document.getElementById("inventory").style.backgroundImage = "url(items/inventory.jpg)";
 	//opent de inventory
 }else if (e.key == 'e' && inventory == 'open'){
-	document.getElementById("inventoryItem").style.backgroundImage = 'none';
+	document.getElementById("inventory").style.backgroundImage = 'none';
 	inventory = 'closed';
 	//sluit de inventory
 }
@@ -194,7 +194,7 @@ if(1000 < getHalfPage()){
 }
 
 //overal waar 'help' achter staat, helpen.
-//achtergrond, bomen, de ondergrond.
+//achtergrond, bomen.
 //achtergrond laten bewegen ipv character
 //obstakels
 //health
