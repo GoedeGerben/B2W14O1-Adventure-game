@@ -134,9 +134,9 @@ if(e.key == 'a' && !walking){
 		}
 	}, 150);
 	setTimeout(function(){walking = false;}, 300);
-	setTimeout(function(){momentumLeft = 0;}, 1200); //help
 	//laat het character naar links lopen elke 300 ms.
 }
+setTimeout(function(){if (!walking) {momentumLeft = 0;}}, 1000); 
 
 if(e.key == 'd' && !walking){
 	walking = true;
@@ -160,11 +160,11 @@ if(e.key == 'd' && !walking){
 		}
 	}, 150);
 	setTimeout(function(){walking = false;}, 300);
-	setTimeout(function(){momentumRight = 0;}, 1200); //help
 	//laat het character naar rechts lopen elke 300 ms.
 }else if (e.key == 'd' && marioHtml.style.marginLeft >= "500px") {
 	console.log("AAAAAAAAAA")
 }
+setTimeout(function(){if(!walking){momentumRight = 0;}}, 1000);
 
 if (e.key == 'e' && inventory == 'closed'){
 	inventory = 'open';
@@ -193,7 +193,6 @@ if(1000 < getHalfPage()){
 	
 }
 
-//overal waar 'help' achter staat, helpen.
 //achtergrond, bomen.
 //achtergrond laten bewegen ipv character
 //obstakels

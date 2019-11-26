@@ -26,8 +26,10 @@
 #box1{
 	background-image: url(achtergronden/box1.png);
 	position:absolute;
-	
-	margin-top: 420px;
+	width: 225px;
+	height: 225px;
+	margin-top: 470px;
+	margin-left: 300px;
 }
 
 #item{
