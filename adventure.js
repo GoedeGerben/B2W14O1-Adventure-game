@@ -1,59 +1,3 @@
-function start() {
-	
-}
-
-function level1() {
-	
-}
-
-function level2() {
-	
-}
-
-function level3() {
-	
-}
-
-function level4() {
-	
-}
-
-function level5() {
-	
-}
-
-function level6() {
-	
-}
-
-function level7() {
-	
-}
-
-function level8() {
-	
-}
-
-function level9() {
-	
-}
-
-function level10() {
-	
-}
-
-function bonus1() {
-	
-}
-
-function bonus2() {
-	
-}
-
-function bonus3() {
-	
-}
-
 var speed = 30; //bepaald de snelhijd van het character.
 
 var box1 = []
@@ -163,7 +107,7 @@ if(e.key == 'd' && !walking){
 	//laat het character naar rechts lopen elke 300 ms.
 }else if (e.key == 'd' && marioHtml.style.marginLeft >= "500px") {
 	console.log("AAAAAAAAAA")
-}
+}//help
 setTimeout(function(){if(!walking){momentumRight = 0;}}, 1000);
 
 if (e.key == 'e' && inventory == 'closed'){
@@ -193,11 +137,22 @@ if(1000 < getHalfPage()){
 	
 }
 
-//achtergrond, bomen.
-//achtergrond laten bewegen ipv character
-//obstakels
+//fixing everything that says "help"
+
+//moving the background and objects instead of the character
+//boxes, walls and other stuff the player can stand on or jump over.
+
 //health
-//wolken
-//items in de inventory plaatsen
-//vijhanden
-//meerdere skins? (mijn idee)
+//coins
+//clock
+
+//clouds
+//picking up items
+//showing items in the inventory
+//enemys
+//effects (when healing you will see particles around you from the item used)
+
+//sound
+//start screen
+//loading screen
+//more skins?

@@ -36,10 +36,28 @@
 	position:absolute;
 }
 
+#trees{
+	background-image: url(achtergronden/oak_tree.png);
+	position: absolute;
+	margin-top: 180px;
+	width:100%;
+	height:567px;
+	background-size: contain;
+	background-repeat: repeat-x;
+}
+
+#background{
+	background-image: url(achtergronden/backgrounds/background.png);
+	background-repeat: repeat-x;
+	width: 100%;
+	height: 688px;
+	position: absolute;
+}
+
 #grass{
     background-image: url(achtergronden/backgrounds/background_layer_4.png);
     background-repeat: repeat-x;
-    width: auto;
+    width: 3000px;
     height: 950px;
     position:relative;
 }
