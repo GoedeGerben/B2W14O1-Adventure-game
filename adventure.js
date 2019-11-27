@@ -1,26 +1,23 @@
 const speed = 30; //bepaald de snelhijd van het character.
 const playArea = '8000px';
-background.style.width = playArea;
-trees.style.width = playArea;
-grass.style.width = playArea;
-
+move.style.width = playArea;
 
 var box1 = [];
 var box2 = [];
 var boxes = [box1, box2];
 
 var myIndex = 0;
-var marioJump =  [-55, -215, -385];		//posities van de sprites op spritesheet van de springanimatie
-var marioWalk = [-55, -215];	//posities van de sprites op spritesheet van de loopanimatie
-var mIndexWalkLeft = 0;		// bepaalt welke index van array marioWalk gebruikt moet worden voor .......
+var charJump =  [-55, -215, -385];		//posities van de sprites op spritesheet van de springanimatie
+var charWalk = [-55, -215];	//posities van de sprites op spritesheet van de loopanimatie
+var mIndexWalkLeft = 0;		// bepaalt welke index van array charWalk gebruikt moet worden voor .......
 var mIndexWalkRight = 0;
-var mIndexJump = 0; // bepaalt welke index van array marioJump gebruikt moet worden voor .......
+var mIndexJump = 0; // bepaalt welke index van array charJump gebruikt moet worden voor .......
 var yPosition = 420; //bepaald de y positie van het character
 
 var mEven = false;	
 var momentumLeft = 0;
 var momentumRight = 0;
-var marioHtml = document.getElementById("mario"); // slaap html element met id mario op in variabel .. var wel goeie naam geven dat later herkenbaar wordt
+var characterHtml = document.getElementById("move"); // slaap html element met id character op in variabel .. var wel goeie naam geven dat later herkenbaar wordt
 var totalJump = 0;		//telt de aantal sprongen
 var inventory = 'closed';	//toggelt de inventory
 var walking = false;	//zorgt ervoor of er kan worden gelopen
@@ -38,11 +35,11 @@ if(e.keyCode == 13 && !jumping){
 	totalJump++;
 	mIndexJump = 1;
 	var animation = setInterval(function(){
-		marioHtml.style.backgroundPosition = marioJump[mIndexJump] + "px 0";
-		marioHtml.style.marginTop = marioJump[mIndexJump] + yPosition + "px";
-		marioHtml.style.marginLeft = Number(marioHtml.style.marginLeft.replace('px', '') ) - momentumLeft + 'px'; //beweegt het character naar links tijdens de sprong als het momentum heeft
-		marioHtml.style.marginLeft = Number(marioHtml.style.marginLeft.replace('px', '') ) + momentumRight + 'px'; //beweegt het character naar rechts tijdens de sprong als het momentum heeft
-		if(mIndexJump == marioJump.length - 1){
+		characterHtml.style.backgroundPosition = charJump[mIndexJump] + "px 0";
+		characterHtml.style.marginTop = charJump[mIndexJump] + yPosition + "px";
+		characterHtml.style.marginLeft = Number(characterHtml.style.marginLeft.replace('px', '') ) - momentumLeft + 'px'; //beweegt het character naar links tijdens de sprong als het momentum heeft
+		characterHtml.style.marginLeft = Number(characterHtml.style.marginLeft.replace('px', '') ) + momentumRight + 'px'; //beweegt het character naar rechts tijdens de sprong als het momentum heeft
+		if(mIndexJump == charJump.length - 1){
 			mEven = true;
 		} 
 		if(!mEven){
@@ -52,7 +49,7 @@ if(e.keyCode == 13 && !jumping){
 		}
 		if(mIndexJump < 0){
 			mEven = false;
-			marioHtml.style.marginTop = yPosition + 'px';
+			characterHtml.style.marginTop = yPosition + 'px';
 			clearInterval(animation);
 		}
 	}, 100);
@@ -60,15 +57,15 @@ if(e.keyCode == 13 && !jumping){
 	//laat het character springen elke 300 ms.
 }
 
-if(e.key == 'a' && !walking && marioHtml.style.marginLeft >= '10'){
+if(e.key == 'd' && !walking && characterHtml.style.marginLeft >= '10'){
 	walking = true;
 	momentumLeft = 30;
-	marioHtml.style.transform = "scaleX(-1)";
+	characterHtml.style.transform = "scaleX(-1)";
 	mIndexWalkLeft = 1;
 	var animation = setInterval(function(){	
-		marioHtml.style.backgroundPosition = marioWalk[mIndexWalkLeft] + "px 0";
-		marioHtml.style.marginLeft = Number(marioHtml.style.marginLeft.replace('px', '') ) - speed + 'px';
-		if(mIndexWalkLeft == marioWalk.length - 1){
+		characterHtml.style.backgroundPosition = charWalk[mIndexWalkLeft] + "px 0";
+		characterHtml.style.marginLeft = Number(characterHtml.style.marginLeft.replace('px', '') ) - speed + 'px';
+		if(mIndexWalkLeft == charWalk.length - 1){
 			mEvenLeft = true;
 		} 
 		if(!mEvenLeft){
@@ -86,15 +83,15 @@ if(e.key == 'a' && !walking && marioHtml.style.marginLeft >= '10'){
 }
 setTimeout(function(){if (!walking) {momentumLeft = 0;}}, 1000); 
 
-if(e.key == 'd' && !walking){
+if(e.key == 'a' && !walking){
 	walking = true;
 	momentumRight = 30;
-	marioHtml.style.transform = "scaleX(+1)";
+	characterHtml.style.transform = "scaleX(+1)";
 	mIndexWalkRight = 1;
 	var animation = setInterval(function(){
-		marioHtml.style.backgroundPosition = marioWalk[mIndexWalkRight] + "px 0";
-		marioHtml.style.marginLeft = Number(marioHtml.style.marginLeft.replace('px', '') ) + speed + 'px';
-		if(mIndexWalkRight == marioWalk.length - 1){
+		characterHtml.style.backgroundPosition = charWalk[mIndexWalkRight] + "px 0";
+		characterHtml.style.marginLeft = Number(characterHtml.style.marginLeft.replace('px', '') ) + speed + 'px';
+		if(mIndexWalkRight == charWalk.length - 1){
 			mEvenRight = true;
 		} 
 		if(!mEvenRight){
@@ -109,9 +106,7 @@ if(e.key == 'd' && !walking){
 	}, 150);
 	setTimeout(function(){walking = false;}, 300);
 	//laat het character naar rechts lopen elke 300 ms.
-}else if (e.key == 'd' && 10 >= 500) {
-	console.log("AAAAAAAAAA")
-}//help
+}
 setTimeout(function(){if(!walking){momentumRight = 0;}}, 1000);
 
 if (e.key == 'e' && inventory == 'closed'){

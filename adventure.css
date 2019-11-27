@@ -6,11 +6,17 @@ html {
 	scroll-behavior: smooth;
 }
 
-#gamecontainer {
-	transition: all 0.5s linear;
+#move {
+	  width: 3000px;
+      height: 950px;
+      background-position: -55px 0;
+      overflow: hidden;
+      transition: margin 0.1s ease ;
+      position:absolute;
+      margin-top: 420px;
 }
 
-#mario{
+#character{
       width: 150px;
       height: 300px;
       background-image: url(characters/mario.png);
