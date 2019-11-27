@@ -1,8 +1,13 @@
-var speed = 30; //bepaald de snelhijd van het character.
+const speed = 30; //bepaald de snelhijd van het character.
+const playArea = '8000px';
+background.style.width = playArea;
+trees.style.width = playArea;
+grass.style.width = playArea;
 
-var box1 = []
-var box2 = []
-var boxes = [box1, box2]
+
+var box1 = [];
+var box2 = [];
+var boxes = [box1, box2];
 
 var myIndex = 0;
 var marioJump =  [-55, -215, -385];		//posities van de sprites op spritesheet van de springanimatie
@@ -10,6 +15,7 @@ var marioWalk = [-55, -215];	//posities van de sprites op spritesheet van de loo
 var mIndexWalkLeft = 0;		// bepaalt welke index van array marioWalk gebruikt moet worden voor .......
 var mIndexWalkRight = 0;
 var mIndexJump = 0; // bepaalt welke index van array marioJump gebruikt moet worden voor .......
+var yPosition = 420; //bepaald de y positie van het character
 
 var mEven = false;	
 var momentumLeft = 0;
@@ -25,7 +31,6 @@ if(totalJump == 10){
 		//veranderd de achtergrond kleur als er 10x word gesprongen.
 	}
 
-
 document.addEventListener("keypress", function(e) { 	
 
 if(e.keyCode == 13 && !jumping){
@@ -33,11 +38,10 @@ if(e.keyCode == 13 && !jumping){
 	totalJump++;
 	mIndexJump = 1;
 	var animation = setInterval(function(){
-	
 		marioHtml.style.backgroundPosition = marioJump[mIndexJump] + "px 0";
-		marioHtml.style.marginTop = marioJump[mIndexJump] + 420 + "px";
+		marioHtml.style.marginTop = marioJump[mIndexJump] + yPosition + "px";
 		marioHtml.style.marginLeft = Number(marioHtml.style.marginLeft.replace('px', '') ) - momentumLeft + 'px'; //beweegt het character naar links tijdens de sprong als het momentum heeft
-		marioHtml.style.marginLeft = Number(marioHtml.style.marginLeft.replace('px', '') ) + (momentumRight) + 'px'; //beweegt het character naar rechts tijdens de sprong als het momentum heeft
+		marioHtml.style.marginLeft = Number(marioHtml.style.marginLeft.replace('px', '') ) + momentumRight + 'px'; //beweegt het character naar rechts tijdens de sprong als het momentum heeft
 		if(mIndexJump == marioJump.length - 1){
 			mEven = true;
 		} 
@@ -48,7 +52,7 @@ if(e.keyCode == 13 && !jumping){
 		}
 		if(mIndexJump < 0){
 			mEven = false;
-			marioHtml.style.marginTop = "420px";
+			marioHtml.style.marginTop = yPosition + 'px';
 			clearInterval(animation);
 		}
 	}, 100);
@@ -56,7 +60,7 @@ if(e.keyCode == 13 && !jumping){
 	//laat het character springen elke 300 ms.
 }
 
-if(e.key == 'a' && !walking){
+if(e.key == 'a' && !walking && marioHtml.style.marginLeft >= '10'){
 	walking = true;
 	momentumLeft = 30;
 	marioHtml.style.transform = "scaleX(-1)";
@@ -105,7 +109,7 @@ if(e.key == 'd' && !walking){
 	}, 150);
 	setTimeout(function(){walking = false;}, 300);
 	//laat het character naar rechts lopen elke 300 ms.
-}else if (e.key == 'd' && marioHtml.style.marginLeft >= "500px") {
+}else if (e.key == 'd' && 10 >= 500) {
 	console.log("AAAAAAAAAA")
 }//help
 setTimeout(function(){if(!walking){momentumRight = 0;}}, 1000);
@@ -119,28 +123,12 @@ if (e.key == 'e' && inventory == 'closed'){
 	inventory = 'closed';
 	//sluit de inventory
 }
-
-
-});
-function getHalfPage(){
-	var width = document.documentElement.clientWidth;
-	width = width / 2;
-	width = width + 150;
-	return width;
-	//vindt de helft van de breedte van de pagina
-}
-
-
-if(1000 < getHalfPage()){
-	
-} else {
-	
-}
+});//einde van de keypress function
 
 //fixing everything that says "help"
 
-//moving the background and objects instead of the character
 //boxes, walls and other stuff the player can stand on or jump over.
+//buildings the player can enter
 
 //health
 //coins
@@ -151,8 +139,13 @@ if(1000 < getHalfPage()){
 //showing items in the inventory
 //enemys
 //effects (when healing you will see particles around you from the item used)
+//pick up boxes / objects and throw them?
 
 //sound
 //start screen
 //loading screen
 //more skins?
+
+//easter eggs
+//left side of the screen
+//if player has jumped x amount of times.

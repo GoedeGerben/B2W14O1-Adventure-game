@@ -2,6 +2,14 @@
 	margin: 0px;
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
+#gamecontainer {
+	transition: all 0.5s linear;
+}
+
 #mario{
       width: 150px;
       height: 300px;
@@ -26,10 +34,11 @@
 #box1{
 	background-image: url(achtergronden/box1.png);
 	position:absolute;
-	width: 225px;
-	height: 225px;
-	margin-top: 470px;
+	width: 150px;
+	height: 150px;
+	margin-top: 545px;
 	margin-left: 300px;
+	background-size: contain;
 }
 
 #item{
