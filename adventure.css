@@ -13,7 +13,7 @@ html {
       overflow: hidden;
       transition: margin 0.1s ease ;
       position:absolute;
-      margin-top: 420px;
+      background-repeat: repeat-x;
 }
 
 #character{
@@ -25,7 +25,12 @@ html {
       transition: margin 0.1s ease ;
       position:absolute;
       margin-top: 420px;
-  }
+      margin-left: 600px
+}
+
+label {
+	z-index: 40;
+}
 
 #inventory{
 	height: 317px;
@@ -43,7 +48,7 @@ html {
 	width: 150px;
 	height: 150px;
 	margin-top: 545px;
-	margin-left: 300px;
+	margin-left: 800px;
 	background-size: contain;
 }
 
@@ -52,9 +57,9 @@ html {
 }
 
 #trees{
-	background-image: url(achtergronden/oak_tree.png);
+	background-image: url(achtergronden/tree-set.png);
 	position: absolute;
-	margin-top: 180px;
+	margin-top: 140px;
 	width:100%;
 	height:567px;
 	background-size: contain;
@@ -67,6 +72,15 @@ html {
 	width: 100%;
 	height: 688px;
 	position: absolute;
+}
+
+#easter1{
+	margin-left: -550px;
+	background-image: url(achtergronden/backgrounds/easter1.png);
+	width: 1040.8px;
+	height: 950px;
+	background-repeat: no-repeat;
+	position: relative;
 }
 
 #grass{

@@ -1,10 +1,9 @@
 const speed = 30; //bepaald de snelhijd van het character.
 const playArea = '8000px';
 move.style.width = playArea;
+grass.style.width = playArea;
 
-var box1 = [];
-var box2 = [];
-var boxes = [box1, box2];
+var time = 0
 
 var myIndex = 0;
 var charJump =  [-55, -215, -385];		//posities van de sprites op spritesheet van de springanimatie
@@ -12,16 +11,37 @@ var charWalk = [-55, -215];	//posities van de sprites op spritesheet van de loop
 var mIndexWalkLeft = 0;		// bepaalt welke index van array charWalk gebruikt moet worden voor .......
 var mIndexWalkRight = 0;
 var mIndexJump = 0; // bepaalt welke index van array charJump gebruikt moet worden voor .......
-var yPosition = 420; //bepaald de y positie van het character
+var yposition = 420;
 
 var mEven = false;	
 var momentumLeft = 0;
 var momentumRight = 0;
-var characterHtml = document.getElementById("move"); // slaap html element met id character op in variabel .. var wel goeie naam geven dat later herkenbaar wordt
+var backgroundHtml = document.getElementById("move"); // slaap html element met id character op in variabel .. var wel goeie naam geven dat later herkenbaar wordt
+var charHtml = document.getElementById("character");
 var totalJump = 0;		//telt de aantal sprongen
 var inventory = 'closed';	//toggelt de inventory
 var walking = false;	//zorgt ervoor of er kan worden gelopen
 var jumping = false;	//zorgt ervoor of er gesprongen kan worden of niet
+
+var minutesLabel = document.getElementById("minutes");
+var secondsLabel = document.getElementById("seconds");
+var totalSeconds = 0;
+setInterval(setTime, 1000);
+
+function setTime() {
+  ++totalSeconds;
+  secondsLabel.innerHTML = pad(totalSeconds % 60);
+  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+}
+
+function pad(val) {
+  var valString = val + "";
+  if (valString.length < 2) {
+    return "0" + valString;
+  } else {
+    return valString;
+  }
+}
 
 if(totalJump == 10){
 		//document.body.style.backgroundColor = "red";
@@ -35,10 +55,13 @@ if(e.keyCode == 13 && !jumping){
 	totalJump++;
 	mIndexJump = 1;
 	var animation = setInterval(function(){
-		characterHtml.style.backgroundPosition = charJump[mIndexJump] + "px 0";
-		characterHtml.style.marginTop = charJump[mIndexJump] + yPosition + "px";
-		characterHtml.style.marginLeft = Number(characterHtml.style.marginLeft.replace('px', '') ) - momentumLeft + 'px'; //beweegt het character naar links tijdens de sprong als het momentum heeft
-		characterHtml.style.marginLeft = Number(characterHtml.style.marginLeft.replace('px', '') ) + momentumRight + 'px'; //beweegt het character naar rechts tijdens de sprong als het momentum heeft
+		charHtml.style.backgroundPosition = charJump[mIndexJump] + "px 0";
+		charHtml.style.marginTop = charJump[mIndexJump] + yposition + "px";
+		if (getPx(backgroundHtml.style.marginLeft) < 0) {
+		backgroundHtml.style.marginLeft = Number(backgroundHtml.style.marginLeft.replace('px', '') ) - momentumLeft + 'px'; //beweegt het character naar links tijdens de sprong als het momentum heeft
+		}//help moet niet verder springen als waar je start.
+		backgroundHtml.style.marginLeft = Number(backgroundHtml.style.marginLeft.replace('px', '') ) + momentumRight + 'px'; //beweegt het character naar rechts tijdens de sprong als het momentum heeft
+		console.log(backgroundHtml.style.marginLeft)
 		if(mIndexJump == charJump.length - 1){
 			mEven = true;
 		} 
@@ -49,7 +72,7 @@ if(e.keyCode == 13 && !jumping){
 		}
 		if(mIndexJump < 0){
 			mEven = false;
-			characterHtml.style.marginTop = yPosition + 'px';
+			charHtml.style.marginTop = yposition + 'px';
 			clearInterval(animation);
 		}
 	}, 100);
@@ -57,14 +80,14 @@ if(e.keyCode == 13 && !jumping){
 	//laat het character springen elke 300 ms.
 }
 
-if(e.key == 'd' && !walking && characterHtml.style.marginLeft >= '10'){
+if(e.key == 'd' && !walking && getPx(backgroundHtml.style.marginLeft) < getPx(playArea)){
 	walking = true;
-	momentumLeft = 30;
-	characterHtml.style.transform = "scaleX(-1)";
+	momentumLeft = speed;
 	mIndexWalkLeft = 1;
+	charHtml.style.transform = "scaleX(+1)";
 	var animation = setInterval(function(){	
-		characterHtml.style.backgroundPosition = charWalk[mIndexWalkLeft] + "px 0";
-		characterHtml.style.marginLeft = Number(characterHtml.style.marginLeft.replace('px', '') ) - speed + 'px';
+		charHtml.style.backgroundPosition = charWalk[mIndexWalkLeft] + "px 0";
+		backgroundHtml.style.marginLeft = Number(backgroundHtml.style.marginLeft.replace('px', '') ) - speed + 'px';
 		if(mIndexWalkLeft == charWalk.length - 1){
 			mEvenLeft = true;
 		} 
@@ -85,12 +108,14 @@ setTimeout(function(){if (!walking) {momentumLeft = 0;}}, 1000);
 
 if(e.key == 'a' && !walking){
 	walking = true;
-	momentumRight = 30;
-	characterHtml.style.transform = "scaleX(+1)";
+	momentumRight = speed;
 	mIndexWalkRight = 1;
+	charHtml.style.transform = "scaleX(-1)";
 	var animation = setInterval(function(){
-		characterHtml.style.backgroundPosition = charWalk[mIndexWalkRight] + "px 0";
-		characterHtml.style.marginLeft = Number(characterHtml.style.marginLeft.replace('px', '') ) + speed + 'px';
+		charHtml.style.backgroundPosition = charWalk[mIndexWalkRight] + "px 0";
+		if (getPx(backgroundHtml.style.marginLeft) < 0) {
+		backgroundHtml.style.marginLeft = Number(backgroundHtml.style.marginLeft.replace('px', '') ) + speed + 'px';
+		}
 		if(mIndexWalkRight == charWalk.length - 1){
 			mEvenRight = true;
 		} 
@@ -120,10 +145,22 @@ if (e.key == 'e' && inventory == 'closed'){
 }
 });//einde van de keypress function
 
+
+var Bounds = function(left, right, top) {
+    this.left = 800;
+    this.right = 950;
+    this.top = 150;
+};
+
+
+function getPx(input){
+	return Number(input.replace('px', '') )
+}
+
 //fixing everything that says "help"
 
-//boxes, walls and other stuff the player can stand on or jump over.
 //buildings the player can enter
+//boxes, walls and other stuff the player can stand on or jump over.
 
 //health
 //coins
