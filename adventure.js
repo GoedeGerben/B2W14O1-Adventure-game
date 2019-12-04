@@ -22,7 +22,7 @@ var totalJump = 0;		//telt de aantal sprongen
 var inventory = 'closed';	//toggelt de inventory
 var walking = false;	//zorgt ervoor of er kan worden gelopen
 var jumping = false;	//zorgt ervoor of er gesprongen kan worden of niet
-
+charHtml.style.width = "200px"
 var minutesLabel = document.getElementById("minutes");
 var secondsLabel = document.getElementById("seconds");
 var totalSeconds = 0;
@@ -49,6 +49,11 @@ if(totalJump == 10){
 		//veranderd de achtergrond kleur als er 10x word gesprongen.
 	}
 
+function nearObject() {
+    -Math.abs(getPx(objects[object].left)) - 800
+
+}//help. moet bij alle objects object komen te staan
+
 document.addEventListener("keypress", function(e) { 	
 
 if(e.keyCode == 13 && !jumping){
@@ -58,7 +63,7 @@ if(e.keyCode == 13 && !jumping){
 	var animation = setInterval(function(){
 		charHtml.style.backgroundPosition = charJump[mIndexJump] + "px 0";
 		charHtml.style.marginTop = charJump[mIndexJump] + yposition + "px";
-		if (getPx(backgroundHtml.style.marginLeft) < 0) {
+		if (getPx(backgroundHtml.style.marginLeft) < 0 && ((getPx(backgroundHtml.style.marginLeft)) >= -Math.abs(getPx(objects[object].left) - 800))) {
 		backgroundHtml.style.marginLeft = Number(backgroundHtml.style.marginLeft.replace('px', '') ) - momentumLeft + 'px'; //beweegt het character naar links tijdens de sprong als het momentum heeft
 		}
 		if (getPx(backgroundHtml.style.marginLeft) < 0) {
@@ -81,8 +86,7 @@ if(e.keyCode == 13 && !jumping){
 	setTimeout(function(){jumping = false;}, 300);
 	//laat het character springen elke 300 ms.
 }
-
-if(e.key == 'd' && !walking && getPx(backgroundHtml.style.marginLeft) < getPx(playArea)){
+if(e.key == 'd' && !walking && getPx(backgroundHtml.style.marginLeft) < getPx(playArea) && ((getPx(backgroundHtml.style.marginLeft)) >= -Math.abs(getPx(objects[object].left) - 800))) {
 	walking = true;
 	momentumLeft = speed;
 	mIndexWalkLeft = 1;
@@ -101,7 +105,7 @@ if(e.key == 'd' && !walking && getPx(backgroundHtml.style.marginLeft) < getPx(pl
 		if(mIndexWalkLeft < 0){
 			mEvenLeft = false;
 			clearInterval(animation);
-		}
+		} 	
 	}, 150);
 	setTimeout(function(){walking = false;}, 300);
 	//laat het character naar links lopen elke 300 ms.
@@ -150,17 +154,45 @@ if (e.key == 'e' && inventory == 'closed'){
 
 var objects = {
 'box1' : {
-	'left' : '800px',
-	'top' : '250px',
-	'height' : '200px',
+	'left' : '1000px',
+	'top' : '460px',
+	'height' : '250px',
+	'width' : '250px',
 	'collision' : true,
-	'type' : 'box',
-	'width' : '200px'
+	'type' : 'box'
+	},
+
+'box2' : {
+	'left' : '2000px',
+	'top' : '460px',
+	'height' : '250px',
+	'width' : '250px',
+	'collision' : true,
+	'type' : 'box'
+	},
+
+'box3' : {
+	'left' : '3900px',
+	'top' : '460px',
+	'height' : '250px',
+	'width' : '250px',
+	'collision' : true,
+	'type' : 'box'
+	},
+
+'box4' : {
+	'left' : '3900px',
+	'top' : '210px',
+	'height' : '250px',
+	'width' : '250px',
+	'collision' : true,
+	'type' : 'box'
 	}
 }
 
 for (var object in objects) {
 	var item = document.createElement("div");
+	
 
 	item.setAttribute("class", objects[object].type);
 	item.setAttribute("id", object);
@@ -168,10 +200,25 @@ for (var object in objects) {
 	item.style.top = objects[object].top;
 	item.style.width = objects[object].width;
 	item.style.height = objects[object].height;
-
+	document.getElementById("move").appendChild(item);
+}
+hasCollision()
+function hasCollision(){
+	(charHtml.left + charHtml.width) >= document.getElementsByClassName('box').left
+	charHtml.marginTop - document.getElementsByClassName('box').top
 }
 
+var buildings = {
+'level1' :{
+	'left' : '800px',
+	'top' : '250px',
+	'height' : '500px',
+	'width' : '500px',
+	'collision' : true,
+	'type' : 'building'
+}
 
+}
 
 var opponents = {
 	'enemy1':{
@@ -194,17 +241,16 @@ function getPx(input){
 
 
 
-//
+//add better player animation 
+//fix the collision
 
 //fixing everything that says "help"
-//fixing the font sheet
 
 //buildings the player can enter
 //boxes, walls and other stuff the player can stand on or jump over.
 
 //health
 //coins
-//clock
 
 //clouds
 //picking up items

@@ -1,14 +1,18 @@
+@font-face {
+    font-family: 'pixel';
+    src: url('arcadeclassic-webfont.woff2') format('woff2'),
+         url('arcadeclassic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 *{
 	margin: 0px;
 }
 
 html {
 	scroll-behavior: smooth;
-}
-
-@font-face{
-	font-family: 'pixel';
-	src: url('fonts/pixelart.ttf');
 }
 
 #move {
@@ -22,27 +26,21 @@ html {
 }
 
 #character{
-      width: 150px;
+      width: 200px;
       height: 300px;
-      background-image: url(characters/mario.png);
+      background-image: url(../characters/Warrior/Run.png);
       background-position: -55px 0;
       overflow: hidden;
       transition: margin 0.1s ease ;
       position:absolute;
       margin-top: 420px;
-      margin-left: 600px
+      margin-left: 600px;
+      background-repeat: no-repeat;
+      vertical-align: top;
+      background-size: cover;
 }
 
-#seconds {
-	margin-top: 30px;
-	margin-left: 1430px;
-	font-size: 30px;
-	position: absolute;
-	z-index: 1;
-	font-family: 'pixel';
-}
-
-#minutes {
+#clock {
 	margin-top: 30px;
 	margin-left: 1400px;
 	font-size: 30px;
@@ -61,18 +59,18 @@ html {
 
 }
 
-#box1{
-	background-image: url(achtergronden/box1.png);
+.box{
+	background-image: url(../achtergronden/box1.png);
 	position:absolute;
-	width: 150px;
-	height: 150px;
-	margin-top: 545px;
-	margin-left: 1000px;
 	background-size: contain;
 }
 
+.building{
+	background-image: url(../achtergronden/house1.png);
+}
+
 #rock{
-	background-image: url(achtergronden/rock.png);
+	background-image: url(../achtergronden/rock.png);
 	position:absolute;
 	width: 400px;
 	height: 400px;
@@ -87,7 +85,7 @@ html {
 }
 
 #trees{
-	background-image: url(achtergronden/tree-set.png);
+	background-image: url(../achtergronden/tree-set.png);
 	position: absolute;
 	margin-top: 140px;
 	width:100%;
@@ -97,24 +95,15 @@ html {
 }
 
 #background{
-	background-image: url(achtergronden/backgrounds/background.png);
+	background-image: url(../achtergronden/backgrounds/background.png);
 	background-repeat: repeat-x;
 	width: 100%;
 	height: 688px;
 	position: absolute;
 }
 
-#easter1{
-	margin-left: -550px;
-	background-image: url(achtergronden/backgrounds/easter1.png);
-	width: 1040.8px;
-	height: 950px;
-	background-repeat: no-repeat;
-	position: relative;
-}
-
 #grass{
-    background-image: url(achtergronden/backgrounds/background_layer_4.png);
+    background-image: url(../achtergronden/backgrounds/background_layer_4.png);
     background-repeat: repeat-x;
     width: 3000px;
     height: 950px;
