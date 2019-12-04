@@ -42,6 +42,7 @@ function pad(val) {
     return valString;
   }
 }
+//help. fix the clock
 
 if(totalJump == 10){
 		//document.body.style.backgroundColor = "red";
@@ -59,9 +60,10 @@ if(e.keyCode == 13 && !jumping){
 		charHtml.style.marginTop = charJump[mIndexJump] + yposition + "px";
 		if (getPx(backgroundHtml.style.marginLeft) < 0) {
 		backgroundHtml.style.marginLeft = Number(backgroundHtml.style.marginLeft.replace('px', '') ) - momentumLeft + 'px'; //beweegt het character naar links tijdens de sprong als het momentum heeft
-		}//help moet niet verder springen als waar je start.
+		}
+		if (getPx(backgroundHtml.style.marginLeft) < 0) {
 		backgroundHtml.style.marginLeft = Number(backgroundHtml.style.marginLeft.replace('px', '') ) + momentumRight + 'px'; //beweegt het character naar rechts tijdens de sprong als het momentum heeft
-		console.log(backgroundHtml.style.marginLeft)
+		}
 		if(mIndexJump == charJump.length - 1){
 			mEven = true;
 		} 
@@ -146,18 +148,56 @@ if (e.key == 'e' && inventory == 'closed'){
 });//einde van de keypress function
 
 
-var Bounds = function(left, right, top) {
-    this.left = 800;
-    this.right = 950;
-    this.top = 150;
-};
+var objects = {
+'box1' : {
+	'left' : '800px',
+	'top' : '250px',
+	'height' : '200px',
+	'collision' : true,
+	'type' : 'box',
+	'width' : '200px'
+	}
+}
 
+for (var object in objects) {
+	var item = document.createElement("div");
+
+	item.setAttribute("class", objects[object].type);
+	item.setAttribute("id", object);
+	item.style.left = objects[object].left;
+	item.style.top = objects[object].top;
+	item.style.width = objects[object].width;
+	item.style.height = objects[object].height;
+
+}
+
+
+
+var opponents = {
+	'enemy1':{
+		'health':100,
+		'dmg': 5,
+		'showOn': 1500
+	}
+}
+
+function opponentCheck(){
+	/*for(var o in opponents) {
+		if () {}
+	}*/
+}
 
 function getPx(input){
 	return Number(input.replace('px', '') )
 }
 
+
+
+
+//
+
 //fixing everything that says "help"
+//fixing the font sheet
 
 //buildings the player can enter
 //boxes, walls and other stuff the player can stand on or jump over.
