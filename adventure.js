@@ -1,10 +1,81 @@
+var title = document.getElementById("title");
+var description = document.getElementById("description");
+var button1 = document.getElementById("button1");
+var button2 = document.getElementById("button2");
+var button3 = document.getElementById("button3");
+
+var charHealth = 20;
+var charDmg = 5;
+var charArmor = 0;
+var charCoins = 0;
+var sword = 'rusty';
+
+var jumpKey = 13;
+var leftKey = 'a';
+var rightKey = 'd';
+var inventoryKey = 'e';
+
+function titleScreen() {
+	var backImage = document.createElement("div");
+	backImage.setAttribute("id", "backImage")
+	backImage.style.backgroundImage = "url('achtergronden/titleBackground.png')";
+	document.getElementById("game-container").appendChild(backImage);
+
+	title.innerHTML = "Finished game";
+
+	description.innerHTML = "";
+
+	button1.innerHTML = "Start";
+	button1.setAttribute("onclick", "turtorial()")
+	button2.innerHTML = "settings";
+	button2.setAttribute("onclick", "alert('The settings are still work in progress.')")
+	button3.innerHTML = "credits";
+	button3.setAttribute("onclick", "alert('This game is made by GoedeGerben on github as a school project. I have no clue who made these textures.')")
+
+}
+titleScreen();
+
+function settings() {
+	title.innerHTML = "Settings";
+
+	description.innerHTML = "You can change your movement settings here.";
+
+	button1.innerHTML = "left = " + leftKey + "";
+	button1.setAttribute("onclick", "var leftKey = prompt('What key would you like to bind moving left to?')")
+	button2.innerHTML = "right = " + rightKey + "";
+	button2.setAttribute("onclick", "var rightKey = prompt('What key would you like to bind moving right to?')")
+	button3.innerHTML = "jump = " + jumpKey + "";
+	button3.setAttribute("onclick", "var jumpKey = prompt('What key would you like to bind jumping to?')")
+	var setting4 = document.createElement("button");
+		setting4.setAttribute("id", "button4")
+	setting4.innerHTML = "inventory = " + inventoryKey + "";
+	setting4.setAttribute("onclick", "var inventoryKey = prompt('What key would you like to bind your inventory to?')")
+	document.getElementById("game-buttons").appendChild(setting4);
+
+	var back = document.createElement("button");
+		back.setAttribute("id", "button4")
+		back.style.top = "335px";
+	back.innerHTML = "back";
+	back.setAttribute("onclick", "titleScreen()")
+	document.getElementById("game-buttons").appendChild(back);
+
+}
+
+
+
+
+function startGame(){
+
 const speed = 30; //bepaald de snelhijd van het character.
-const playArea = '8000px';
-move.style.width = playArea;
-grass.style.width = playArea;
+const playArea = '9000px';
+
+//movement
 
 var time = 0
 
+var walking = false;	//makes the player able to move or not.
+var jumping = false;	//makes the player able to jump or not.
+var totalJump = 0;		//counts how many time the player has jumped.
 var myIndex = 0;
 var charJump =  [-55, -215, -385];		//posities van de sprites op spritesheet van de springanimatie
 var charWalk = [-55, -215];	//posities van de sprites op spritesheet van de loopanimatie
@@ -12,17 +83,18 @@ var mIndexWalkLeft = 0;		// bepaalt welke index van array charWalk gebruikt moet
 var mIndexWalkRight = 0;
 var mIndexJump = 0; // bepaalt welke index van array charJump gebruikt moet worden voor .......
 var yposition = 420;
-
 var mEven = false;	
 var momentumLeft = 0;
 var momentumRight = 0;
-var backgroundHtml = document.getElementById("move"); // slaap html element met id character op in variabel .. var wel goeie naam geven dat later herkenbaar wordt
+
+var backgroundHtml = document.getElementById("move");
 var charHtml = document.getElementById("character");
-var totalJump = 0;		//telt de aantal sprongen
-var inventory = 'closed';	//toggelt de inventory
-var walking = false;	//zorgt ervoor of er kan worden gelopen
-var jumping = false;	//zorgt ervoor of er gesprongen kan worden of niet
-charHtml.style.width = "200px"
+charHtml.style.width = "150px"
+move.style.width = playArea;
+grass.style.width = playArea;
+
+var inventory = 'closed';	//the state of the inventory
+
 var minutesLabel = document.getElementById("minutes");
 var secondsLabel = document.getElementById("seconds");
 var totalSeconds = 0;
@@ -42,11 +114,10 @@ function pad(val) {
     return valString;
   }
 }
-//help. fix the clock
 
 if(totalJump == 10){
 		//document.body.style.backgroundColor = "red";
-		//veranderd de achtergrond kleur als er 10x word gesprongen.
+		//changes ssomething whe the player has jumped a certain amount of times
 	}
 
 function nearObject() {
@@ -56,14 +127,14 @@ function nearObject() {
 
 document.addEventListener("keypress", function(e) { 	
 
-if(e.keyCode == 13 && !jumping){
+if(e.keyCode == jumpKey && !jumping){
 	jumping = true;
 	totalJump++;
 	mIndexJump = 1;
 	var animation = setInterval(function(){
 		charHtml.style.backgroundPosition = charJump[mIndexJump] + "px 0";
 		charHtml.style.marginTop = charJump[mIndexJump] + yposition + "px";
-		if (getPx(backgroundHtml.style.marginLeft) < 0 && ((getPx(backgroundHtml.style.marginLeft)) >= -Math.abs(getPx(objects[object].left) - 800))) {
+		if (getPx(backgroundHtml.style.marginLeft) < 0 ) {
 		backgroundHtml.style.marginLeft = Number(backgroundHtml.style.marginLeft.replace('px', '') ) - momentumLeft + 'px'; //beweegt het character naar links tijdens de sprong als het momentum heeft
 		}
 		if (getPx(backgroundHtml.style.marginLeft) < 0) {
@@ -86,7 +157,7 @@ if(e.keyCode == 13 && !jumping){
 	setTimeout(function(){jumping = false;}, 300);
 	//laat het character springen elke 300 ms.
 }
-if(e.key == 'd' && !walking && getPx(backgroundHtml.style.marginLeft) < getPx(playArea) && ((getPx(backgroundHtml.style.marginLeft)) >= -Math.abs(getPx(objects[object].left) - 800))) {
+if(e.key == rightKey && !walking && getPx(backgroundHtml.style.marginLeft) < getPx(playArea)) {
 	walking = true;
 	momentumLeft = speed;
 	mIndexWalkLeft = 1;
@@ -112,7 +183,7 @@ if(e.key == 'd' && !walking && getPx(backgroundHtml.style.marginLeft) < getPx(pl
 }
 setTimeout(function(){if (!walking) {momentumLeft = 0;}}, 1000); 
 
-if(e.key == 'a' && !walking){
+if(e.key == leftKey && !walking){
 	walking = true;
 	momentumRight = speed;
 	mIndexWalkRight = 1;
@@ -140,7 +211,7 @@ if(e.key == 'a' && !walking){
 }
 setTimeout(function(){if(!walking){momentumRight = 0;}}, 1000);
 
-if (e.key == 'e' && inventory == 'closed'){
+if (e.key == inventoryKey && inventory == 'closed'){
 	inventory = 'open';
 	document.getElementById("inventory").style.backgroundImage = "url(items/inventory.jpg)";
 	//opent de inventory
@@ -151,7 +222,71 @@ if (e.key == 'e' && inventory == 'closed'){
 }
 });//einde van de keypress function
 
+hasCollision()
+function hasCollision(){
+	(charHtml.left + charHtml.width) >= document.getElementsByClassName('box').left
+	charHtml.marginTop - document.getElementsByClassName('box').top
+}
 
+function getPx(input){
+	return Number(input.replace('px', '') )
+}
+//item pick up
+}
+
+//levels
+function turtorial() {
+	backImage.style.background = "";
+	backImage.style.height = "0"
+
+	var clock = document.createElement("P");
+	clock.setAttribute("id", "clock");
+	document.getElementById("game-container").appendChild(clock);
+	var minutes = document.createElement("label");
+	minutes.setAttribute("id", "minutes");
+	minutes.innerHTML = "00";
+	var seconds = document.createElement("label");
+	seconds.setAttribute("id", "seconds");
+	seconds.innerHTML = "00";
+	clock.appendChild(minutes);
+	clock.appendChild(document.createTextNode(" : "));
+	clock.appendChild(seconds);
+
+	var inventory = document.createElement("div");
+	inventory.setAttribute("id", "inventory");
+	document.getElementById("game-container").appendChild(inventory);
+	var inventoryItem = document.createElement("div");
+	inventoryItem.setAttribute("id", "inventoryItem");
+	inventory.appendChild(inventoryItem);
+
+	var move = document.createElement("div");
+	move.setAttribute("id", "move");
+	document.getElementById("game-container").appendChild(move);
+	var background = document.createElement("div");
+	background.setAttribute("id", "background");
+	move.appendChild(background);
+	var trees = document.createElement("div");
+	trees.setAttribute("id", "trees");
+	move.appendChild(trees);
+	var rock = document.createElement("div");
+	rock.setAttribute("id", "rock");
+	move.appendChild(rock);
+	var grass = document.createElement("div");
+	grass.setAttribute("id", "grass");
+	move.appendChild(grass);
+
+	var character = document.createElement("div");
+	character.setAttribute("id", "character");
+	document.getElementById("game-container").appendChild(character);
+
+	document.getElementById("game-buttons").removeChild(button1);
+	document.getElementById("game-buttons").removeChild(button2);
+	document.getElementById("game-buttons").removeChild(button3);
+
+	title.innerHTML = 'turtorial';
+	description.innerHTML = "This is the turtorial. Use '" + leftKey + "' and '" + rightKey + "' to move and press '" + jumpKey + "' to jump.";
+
+	function TObjects(){
 var objects = {
 'box1' : {
 	'left' : '1000px',
@@ -159,7 +294,7 @@ var objects = {
 	'height' : '250px',
 	'width' : '250px',
 	'collision' : true,
-	'type' : 'box'
+	'className' : 'box'
 	},
 
 'box2' : {
@@ -168,7 +303,7 @@ var objects = {
 	'height' : '250px',
 	'width' : '250px',
 	'collision' : true,
-	'type' : 'box'
+	'className' : 'box'
 	},
 
 'box3' : {
@@ -177,7 +312,7 @@ var objects = {
 	'height' : '250px',
 	'width' : '250px',
 	'collision' : true,
-	'type' : 'box'
+	'className' : 'box'
 	},
 
 'box4' : {
@@ -186,84 +321,65 @@ var objects = {
 	'height' : '250px',
 	'width' : '250px',
 	'collision' : true,
-	'type' : 'box'
+	'className' : 'box'
+	},
+
+'level1' :{
+	'left' : '2400px',
+	'top' : '40px',
+	'height' : '650px',
+	'width' : '800px',
+	'collision' : false,
+	'className' : 'building',
+	'type' : 'button',
+	'function' : 'level1()'
+	},
+
+'level2' :{
+	'left' : '8000px',
+	'top' : '250px',
+	'height' : '500px',
+	'width' : '500px',
+	'collision' : false,
+	'className' : 'building',
+	'type' : 'button',
+	'function' : 'level2()'
+	},
+
+'sword2' :{
+	'left' : '1500px',
+	'top' : '565px',
+	'height' : '150px',
+	'width' : '150px',
+	'collision' : false,
+	'className' : 'item',
+	'type' : 'button',
+	'function' : 'pickUpSword("sword2");'
 	}
 }
 
-for (var object in objects) {
-	var item = document.createElement("div");
-	
-
-	item.setAttribute("class", objects[object].type);
+for (var object in objects) {	
+	if(typeof objects[object].type == 'undefined'){
+		var item = document.createElement("div");
+	}else{
+		var item = document.createElement("button");
+		item.setAttribute("onclick", objects[object].function)	
+	}
+	item.setAttribute("class", objects[object].className);
 	item.setAttribute("id", object);
+	item.setAttribute("type", objects[object].type);
 	item.style.left = objects[object].left;
 	item.style.top = objects[object].top;
 	item.style.width = objects[object].width;
 	item.style.height = objects[object].height;
 	document.getElementById("move").appendChild(item);
 }
-hasCollision()
-function hasCollision(){
-	(charHtml.left + charHtml.width) >= document.getElementsByClassName('box').left
-	charHtml.marginTop - document.getElementsByClassName('box').top
+}
+function pickUpSword(){
+	sword = arguments[0];
+	document.getElementById(arguments[0]).style.backgroundImage = 'none';
 }
 
-var buildings = {
-'level1' :{
-	'left' : '800px',
-	'top' : '250px',
-	'height' : '500px',
-	'width' : '500px',
-	'collision' : true,
-	'type' : 'building'
+TObjects()
+startGame()
 }
-
-}
-
-var opponents = {
-	'enemy1':{
-		'health':100,
-		'dmg': 5,
-		'showOn': 1500
-	}
-}
-
-function opponentCheck(){
-	/*for(var o in opponents) {
-		if () {}
-	}*/
-}
-
-function getPx(input){
-	return Number(input.replace('px', '') )
-}
-
-
-
-
-//add better player animation 
-//fix the collision
-
-//fixing everything that says "help"
-
-//buildings the player can enter
-//boxes, walls and other stuff the player can stand on or jump over.
-
-//health
-//coins
-
-//clouds
-//picking up items
-//showing items in the inventory
-//enemys
-//effects (when healing you will see particles around you from the item used)
-//pick up boxes / objects and throw them?
-
-//sound
-//start screen
-//loading screen
-//more skins?
-
-//easter eggs
-//left side of the screen
-//if player has jumped x amount of times.

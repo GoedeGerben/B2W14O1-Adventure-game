@@ -15,30 +15,112 @@ html {
 	scroll-behavior: smooth;
 }
 
-#move {
-	  width: 3000px;
-      height: 950px;
-      background-position: -55px 0;
-      overflow: hidden;
-      transition: margin 0.1s ease ;
-      position:absolute;
-      background-repeat: repeat-x;
+#title {
+	margin-top: 100px;
+	left: 0;
+    position:absolute;
+    text-align:center;
+    top: 30px;
+    width: 100%;
+    color: grey;
+    -webkit-text-stroke-width: 1px;
+  	-webkit-text-stroke-color: black;
+    font-family: 'pixel';
+    font-size: 50px;
 }
 
-#character{
-      width: 200px;
-      height: 300px;
-      background-image: url(../characters/Warrior/Run.png);
-      background-position: -55px 0;
-      overflow: hidden;
-      transition: margin 0.1s ease ;
-      position:absolute;
-      margin-top: 420px;
-      margin-left: 600px;
-      background-repeat: no-repeat;
-      vertical-align: top;
-      background-size: cover;
+#description {
+	margin-top: 150px;
+	left: 0;
+    position:absolute;
+    text-align:center;
+    top: 30px;
+    width: 100%;
+    color: grey;
+    -webkit-text-stroke-width: 1px;
+  	-webkit-text-stroke-color: black;
+    font-family: 'pixel';
+    font-size: 40px;
 }
+
+#game-buttons {
+	margin-top: 230px;
+    position:absolute;
+    text-align:center;
+    width: 100%;
+    right: 75px;
+}
+
+#button1 {
+    position:absolute;
+    text-align:center;
+    top: 30px;
+    width: 150px;
+    color: grey;
+    font-family: 'pixel';
+    font-size: 30px;
+	background-color: black;
+	border: none;
+	padding: 16px 0;
+	opacity: 0.6;
+}
+
+#button2 {
+    position:absolute;
+    text-align:center;
+    top: 100px;
+    width: 150px;
+    color: grey;
+    font-family: 'pixel';
+    font-size: 30px;
+	background-color: black;
+	border: none;
+	padding: 16px 0;
+	opacity: 0.6;
+}
+
+#button3 {
+    position:absolute;
+    text-align:center;
+    top: 170px;
+    width: 150px;
+    color: grey;
+    font-family: 'pixel';
+    font-size: 30px;
+	background-color: black;
+	border: none;
+	padding: 16px 0;
+	opacity: 0.6;
+}
+
+#button4 {
+    position:absolute;
+    text-align:center;
+    top: 240px;
+    width: 150px;
+    color: grey;
+    font-family: 'pixel';
+    font-size: 30px;
+	background-color: black;
+	border: none;
+	padding: 16px 0;
+	opacity: 0.6;
+}
+
+#game-container{
+	width: 100%;
+	position: relative;
+}
+
+#backImage {
+	height: 800px;
+	position: relative;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	z-index: -1;
+}
+
 
 #clock {
 	margin-top: 30px;
@@ -53,10 +135,38 @@ html {
 	height: 317px;
 	width: 467px;
 	position:absolute;
+	z-index: 2;
+	margin-top: 60px;
 }
 
 #inventoryItem{
+	z-index: 3;
+}
 
+#move {
+	  width: 3000px;
+      height: 950px;
+      background-position: -55px 0;
+      overflow: hidden;
+      transition: margin 0.1s ease ;
+      position:absolute;
+      background-repeat: repeat-x;
+}
+
+#character{
+      width: 150px;
+      height: 300px;
+      background-image: url(../characters/mario.png);
+      background-position: -55px 0;
+      overflow: hidden;
+      transition: margin 0.1s ease ;
+      position:absolute;
+      margin-top: 420px;
+      margin-left: 600px;
+      background-repeat: no-repeat;
+      vertical-align: top;
+      background-size: cover;
+      z-index: 2;
 }
 
 .box{
@@ -67,21 +177,35 @@ html {
 
 .building{
 	background-image: url(../achtergronden/house1.png);
+	background-color: Transparent;
+	background-size: contain;
+	background-repeat: no-repeat;
+	position:absolute;
+	outline: none;
+	border: none;
+	z-index: 1;
+}
+
+#sword2{
+	background-image: url(../items/sword_2.png);
+	background-color: Transparent;
+	background-repeat: no-repeat;
+	background-size: contain;
+	position: absolute;
+	outline: none;
+	border: none;
+	z-index: 1;
 }
 
 #rock{
 	background-image: url(../achtergronden/rock.png);
+	background-size: contain;
 	position:absolute;
 	width: 400px;
 	height: 400px;
 	margin-top: 362px;
 	margin-left: 220px;
-	background-size: contain;
 	z-index: 0;
-}
-
-#item{
-	position:absolute;
 }
 
 #trees{
