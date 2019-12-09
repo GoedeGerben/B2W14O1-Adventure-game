@@ -8,7 +8,7 @@ var charHealth = 20;
 var charDmg = 5;
 var charArmor = 0;
 var charCoins = 0;
-var sword = 'rusty';
+var sword = 'none';
 
 var jumpKey = 13;
 var leftKey = 'a';
@@ -66,22 +66,20 @@ function settings() {
 
 function startGame(){
 
-const speed = 30; //bepaald de snelhijd van het character.
+const speed = 30; //Speed of the character
 const playArea = '9000px';
 
-//movement
 
-var time = 0
-
+//animation and movement
 var walking = false;	//makes the player able to move or not.
 var jumping = false;	//makes the player able to jump or not.
 var totalJump = 0;		//counts how many time the player has jumped.
 var myIndex = 0;
-var charJump =  [-55, -215, -385];		//posities van de sprites op spritesheet van de springanimatie
-var charWalk = [-55, -215];	//posities van de sprites op spritesheet van de loopanimatie
-var mIndexWalkLeft = 0;		// bepaalt welke index van array charWalk gebruikt moet worden voor .......
+var charJump =  [-55, -215, -385];	//positions of the sprite on the sprite sheet
+var charWalk = [-55, -215];	//positions of the sprite on the sprite sheet
+var mIndexWalkLeft = 0;		
 var mIndexWalkRight = 0;
-var mIndexJump = 0; // bepaalt welke index van array charJump gebruikt moet worden voor .......
+var mIndexJump = 0; 
 var yposition = 420;
 var mEven = false;	
 var momentumLeft = 0;
@@ -89,12 +87,12 @@ var momentumRight = 0;
 
 var backgroundHtml = document.getElementById("move");
 var charHtml = document.getElementById("character");
-charHtml.style.width = "150px"
+charHtml.style.width = "150px"; //character width
 move.style.width = playArea;
 grass.style.width = playArea;
-
+//inventory
 var inventory = 'closed';	//the state of the inventory
-
+//timer
 var minutesLabel = document.getElementById("minutes");
 var secondsLabel = document.getElementById("seconds");
 var totalSeconds = 0;
@@ -284,102 +282,115 @@ function turtorial() {
 	document.getElementById("game-buttons").removeChild(button3);
 
 	title.innerHTML = 'turtorial';
-	description.innerHTML = "This is the turtorial. Use '" + leftKey + "' and '" + rightKey + "' to move and press '" + jumpKey + "' to jump.";
+	title.style.fontSize = '40px';
+	title.style.marginTop = '50px';
+	title.style.width = '800px';
+	title.style.marginLeft = '80px';
+	document.getElementById("move").appendChild(title);
 
-	function TObjects(){
-var objects = {
-'box1' : {
-	'left' : '1000px',
-	'top' : '460px',
-	'height' : '250px',
-	'width' : '250px',
-	'collision' : true,
-	'className' : 'box'
-	},
+	description.innerHTML = "This is the turtorial. Use '" + leftKey + "' and '" + rightKey + "' to move and press 'enter' to jump.";
+	description.style.fontSize = '30px';
+	description.style.marginTop = '100px';
+	description.style.width = '800px';
+	description.style.marginLeft = '80px';
+	document.getElementById("move").appendChild(description);
 
-'box2' : {
-	'left' : '2000px',
-	'top' : '460px',
-	'height' : '250px',
-	'width' : '250px',
-	'collision' : true,
-	'className' : 'box'
-	},
 
-'box3' : {
-	'left' : '3900px',
-	'top' : '460px',
-	'height' : '250px',
-	'width' : '250px',
-	'collision' : true,
-	'className' : 'box'
-	},
 
-'box4' : {
-	'left' : '3900px',
-	'top' : '210px',
-	'height' : '250px',
-	'width' : '250px',
-	'collision' : true,
-	'className' : 'box'
-	},
+function TObjects(){
+	var objects = {
+	'box1' : {
+		'left' : '1000px',
+		'top' : '460px',
+		'height' : '250px',
+		'width' : '250px',
+		'collision' : true,
+		'className' : 'box'
+		},
 
-'level1' :{
-	'left' : '2400px',
-	'top' : '40px',
-	'height' : '650px',
-	'width' : '800px',
-	'collision' : false,
-	'className' : 'building',
-	'type' : 'button',
-	'function' : 'level1()'
-	},
+	'box2' : {
+		'left' : '2000px',
+		'top' : '460px',
+		'height' : '250px',
+		'width' : '250px',
+		'collision' : true,
+		'className' : 'box'
+		},
 
-'level2' :{
-	'left' : '8000px',
-	'top' : '250px',
-	'height' : '500px',
-	'width' : '500px',
-	'collision' : false,
-	'className' : 'building',
-	'type' : 'button',
-	'function' : 'level2()'
-	},
+	'box3' : {
+		'left' : '3900px',
+		'top' : '460px',
+		'height' : '250px',
+		'width' : '250px',
+		'collision' : true,
+		'className' : 'box'
+		},
 
-'sword2' :{
-	'left' : '1500px',
-	'top' : '565px',
-	'height' : '150px',
-	'width' : '150px',
-	'collision' : false,
-	'className' : 'item',
-	'type' : 'button',
-	'function' : 'pickUpSword("sword2");'
+	'box4' : {
+		'left' : '3900px',
+		'top' : '210px',
+		'height' : '250px',
+		'width' : '250px',
+		'collision' : true,
+		'className' : 'box'
+		},
+
+	'level1' :{
+		'left' : '2400px',
+		'top' : '40px',
+		'height' : '650px',
+		'width' : '800px',
+		'collision' : false,
+		'className' : 'building',
+		'type' : 'button',
+		'function' : 'level1()'
+		},
+
+	'level2' :{
+		'left' : '8000px',
+		'top' : '250px',
+		'height' : '500px',
+		'width' : '500px',
+		'collision' : false,
+		'className' : 'building',
+		'type' : 'button',
+		'function' : 'level2()'
+		},
+
+	'sword2' :{
+		'left' : '1500px',
+		'top' : '565px',
+		'height' : '150px',
+		'width' : '150px',
+		'collision' : false,
+		'className' : 'item',
+		'type' : 'button',
+		'function' : 'pickUpSword("rusty");'
+		}
+	}
+
+	for (var object in objects) {	
+		if(typeof objects[object].type == 'undefined'){
+			var item = document.createElement("div");
+		}else{
+			var item = document.createElement("button");
+			item.setAttribute("onclick", objects[object].function)	
+		}
+		item.setAttribute("class", objects[object].className);
+		item.setAttribute("id", object);
+		item.setAttribute("type", objects[object].type);
+		item.style.left = objects[object].left;
+		item.style.top = objects[object].top;
+		item.style.width = objects[object].width;
+		item.style.height = objects[object].height;
+		document.getElementById("move").appendChild(item);
 	}
 }
-
-for (var object in objects) {	
-	if(typeof objects[object].type == 'undefined'){
-		var item = document.createElement("div");
-	}else{
-		var item = document.createElement("button");
-		item.setAttribute("onclick", objects[object].function)	
-	}
-	item.setAttribute("class", objects[object].className);
-	item.setAttribute("id", object);
-	item.setAttribute("type", objects[object].type);
-	item.style.left = objects[object].left;
-	item.style.top = objects[object].top;
-	item.style.width = objects[object].width;
-	item.style.height = objects[object].height;
-	document.getElementById("move").appendChild(item);
-}
+TObjects()
+startGame()
 }
 function pickUpSword(){
 	sword = arguments[0];
+	charDmg = 20;
 	document.getElementById(arguments[0]).style.backgroundImage = 'none';
-}
-
-TObjects()
-startGame()
 }

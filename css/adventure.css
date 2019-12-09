@@ -27,6 +27,7 @@ html {
   	-webkit-text-stroke-color: black;
     font-family: 'pixel';
     font-size: 50px;
+    z-index: 2;
 }
 
 #description {
@@ -41,6 +42,7 @@ html {
   	-webkit-text-stroke-color: black;
     font-family: 'pixel';
     font-size: 40px;
+    z-index: 2;
 }
 
 #game-buttons {
@@ -137,6 +139,7 @@ html {
 	position:absolute;
 	z-index: 2;
 	margin-top: 60px;
+	margin-left: 60px;
 }
 
 #inventoryItem{
